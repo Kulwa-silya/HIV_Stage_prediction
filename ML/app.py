@@ -51,16 +51,6 @@ def submit(stage_value=0):
         print((stage_value[0][0]))
    
     return render_template("index.html", stage = stage_value)
-# @app.route("/sub", methods = ["POST"])
-# def submit():
-#     #html -> .py
-#     if request.method == "POST":
-#         weight = request.form["weight"]
-#         ArvStatusCode =request.form["ArvStatusCode"]
-#         cd4 = request.form["cd4"]
-#         Tb_Screening_ID = request.form["Tb_Screening_ID"]
-#     # .py -> html
-#     return render_template("sub.html", w = weight, c = cd4, ASC=ArvStatusCode, TbS_ID = Tb_Screening_ID )
 
 if __name__ == "__main__":
     app.run(debug=True)
