@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static' , filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <title>Stage Predictor</title>
+    <style>
+      body {
+        background-image: url("https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80");
+        background-size:cover;
+        background-blend-mode:multiply;
+        min-width: 100%;
+      }
+    </style>
+</head>
+<body>
+    <div class="row mb-1">
+        <div class="col-sm-1 themed-grid-col"></div>
+        <div class="col-sm-6 themed-grid-col">
+              &nbsp;
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">CTC system &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enter patient data</h5>
+                  <form action="/" method="POST">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">weight</label>
+                      <div class="col-sm-9">
+                        <input type="text" name="weight" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">ArvStatusCode</label>
+                      <select class="custom-select col-sm-8" name="ArvStatusCode">
+                        <option selected name="ArvStatusCode" class="form-control" disabled=True>Choose...</option>
+                        <option value="1" name="ArvStatusCode" class="form-control">1. No ARV</option>
+                        <option value="2" name="ArvStatusCode" class="form-control">2. Start ARV</option>
+                        <option value="3" name="ArvStatusCode">3. Continue ARV</option>
+                        <option value="4" name="ArvStatusCode">4. Change ARV</option>
+                        <option value="5" name="ArvStatusCode">5. Stop ARV</option>
+                        <option value="6" name="ArvStatusCode">6. Restart ARV</option>
+                      </select>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">CD4</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="cd4" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Tb_Screening_ID</label>
+                        <select class="custom-select col-sm-8" name="Tb_Screening_ID">
+                          <option selected name="Tb_Screening_ID" disabled=True>Choose...</option>
+                          <option value="cxr+" name="Tb_Screening_ID">cxr+ (Chest X-Ray Positive/suggestive of TB)</option>
+                          <option value="cxr-" name="Tb_Screening_ID">cxr- (Chest X-Ray not suggestive of TB)</option>
+                          <option value="conf_yes" name="Tb_Screening_ID">conf/yes (Confirm / Yes (codes from old card))</option>
+                          <option value="scr_ve" name="Tb_Screening_ID">SCR -ve (Screen negative - answered no to all 5 TB screening questions)</option>
+                          <option value="ss+" name="Tb_Screening_ID">ss+ (Sputum Sample Positive)</option>
+                          <option value="ss-" name="Tb_Screening_ID">ss- (Sputum Sample Negative)</option>
+                          <option value="tb_susp" name="Tb_Screening_ID">TB susp (TB suspected - answered yes to 1 or more TB screening questions)</option>
+                        </select>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">NutritionalStatusId</label>
+                        <select class="custom-select col-sm-8" name="NutritionalStatusId">
+                          <option selected name="NutritionalStatusId" disabled=True>Choose...</option>
+                          <option value="OK" name="NutritionalStatusId">OK (Not malnourished)</option>
+                          <option value="MOD" name="NutritionalStatusId">MOD (Moderate malnourishment)</option>
+                          <option value="SEV" name="NutritionalStatusId">SEV (Severe malnourishment)</option>
+                        </select>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">FunctionalStatusId</label>
+                        <select class="custom-select col-sm-8" name="functionalStatusId">
+                          <option selected name="functionalStatusId" disabled=True>Choose...</option>
+                          <option value="Ambulatory" name="functionalStatusId">Ambulatory</option>
+                          <option value="Bedridden" name="functionalStatusId">Bedridden</option>
+                          <option value="Working" name="functionalStatusId">Working</option>
+                        </select>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">ARVAdherenceCode</label>
+                        <select class="custom-select col-sm-8" name="ARVAdherenceCode">
+                          <option selected name="ARVAdherenceCode" disabled=True>Choose...</option>
+                          <option value="g" name="ARVAdherenceCode">Good - fewer than 2 missed days</option>
+                          <option value="p" name="ARVAdherenceCode">Poor - 2 or more missed days</option>
+                        </select>
+                      </div>
+                    <center><button type="submit" class="btn btn-primary col-sm-3">Submit</button>
+                    {% if stage %}
+                      &nbsp;
+                      <strong><p class="col-sm-9">this patient is on stage {{stage[0][0]}}<p><strong>
+                    {% endif %}
+                    </center>
+                </div>
+              </div>  
+        </div>
+        <div class="col-sm-2 themed-grid-col">
+          <!-- {% if stage %}
+            <strong><p class="col-sm-9">this patient is on stage {{stage[0][0]}}<p><strong>
+          {% endif %} -->
+        </div>
+    </div>
+</body>
+</html>
